@@ -10,5 +10,17 @@ package Servlets;
  * @author 679810
  */
 public class UserService {
+    String userName1 = "betty";
+    String userName2 = "adam";
+    String passWord = "password";
+    
+    public boolean login (String username, String password) {
+        
+        if (username.equals(userName1) || username.equals(userName2) && password.equals(passWord))
+            return true;
+        else
+            return false;
+    }
+    
     
 }

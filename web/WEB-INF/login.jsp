@@ -27,12 +27,13 @@ which validates the user and password.
     <body>
         <h1>Login</h1>
         <div>
-            <form action="LoginServlet" method="POST">
-                First name: <input type="text" name="fname" value="${firstname}"><br>
-                Last name: <input type="text" name="pword" value="${password}"><br>
+            <form action="login" method="POST">
+                Username: <input type="text" name="username" value="${username}"><br>
+                Password: <input type="password" name="pword" value="${password}"><br>
                 <input type="submit" value="Login">
             </form>
         </div>
         ${errorMessage}
+        ${success}
     </body>
 </html>

@@ -30,6 +30,9 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String successMessage = request.getParameter("success");
+        request.setAttribute("success", successMessage);
+        
          getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
          
          return;
@@ -41,24 +44,30 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String userName = request.getParameter("fname");
+        UserService us = new UserService();
+        
+        String userName = request.getParameter("username");
                 userName = userName.toLowerCase();
         String passWord = request.getParameter("pword");
         
         if (userName == null || passWord == null 
                 || userName.trim().isEmpty() || passWord.trim().isEmpty()) {
-           
-            doGet(request, response);
             
             request.setAttribute("errorMessage", "Both values are required!");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").
             forward(request, response);
             
-        } else if (userName != "adam" || userName != "betty" || passWord != "password") {
-            request.setAttribute("errorMessage", "Invalid username or password!");
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").
-            forward(request, response);
-            
+        } else {
+            if (us.login(userName, passWord) == false) {
+                
+                request.setAttribute("username", userName);
+                request.setAttribute("password", passWord);
+                request.setAttribute("errorMessage", "Invalid username or password!");
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            } else {
+                request.setAttribute("usersname", userName);
+                getServletContext().getRequestDispatcher("/WEB-INF/mainPage.jsp").forward(request, response);
+            }
         }
         
     }

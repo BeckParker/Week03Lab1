@@ -22,9 +22,10 @@ which validates the user and password.
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Welcome Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Hello ${usersname}!</h1>
+        <a href="login?success=Logout Successful">Logout</a>
     </body>
 </html>
